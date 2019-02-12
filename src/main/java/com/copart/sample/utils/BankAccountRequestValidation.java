@@ -32,8 +32,10 @@ public class BankAccountRequestValidation {
 	public String validateAddBankAccountRequest(BankAccount bankAccount) {
 		System.out.println("Bank Account detail received: " + bankAccount);
 		String message = "";
-		
-		if(bankAccount.getEmail() == null) {
+		if(bankAccount.getAccountNumber() == null) {
+			return("Account Number is a required field");
+		}
+		else if(bankAccount.getEmail() == null) {
 			return("Email is a required field");
 		} else if(bankAccount.getFirstName() == null || bankAccount.getFirstName().trim().length() < 1) {
 			return("First name not provided");

@@ -33,8 +33,8 @@ public class BankAccountServiceTest {
 	public void init() {
 		bankAccounts = new ArrayList<>();
 		
-		BankAccount ba1 = new BankAccount("Saurav", "Sharma", "Saurav.Sharma@Copart.com", null);
-		BankAccount ba2 = new BankAccount("Vishrut", "Sharma", "Gaurav.Sharma@Copart.com", null);
+		BankAccount ba1 = new BankAccount(1L, "Saurav", "Sharma", "Saurav.Sharma@Copart.com", null);
+		BankAccount ba2 = new BankAccount(2L, "Vishrut", "Sharma", "Gaurav.Sharma@Copart.com", null);
 		
 		bankAccounts.add(ba1);
 		bankAccounts.add(ba2);

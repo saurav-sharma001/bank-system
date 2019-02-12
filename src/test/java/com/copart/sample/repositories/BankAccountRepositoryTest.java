@@ -29,17 +29,17 @@ public class BankAccountRepositoryTest {
 	public void setUp() throws Exception {
 		
 		System.out.println("---------- Running Test Cases -----------");
-		BankAccount ba1 = new BankAccount("Saurav", "Sharma", "Saurav.Sharma@Copart.com", null);
-		BankAccount ba2 = new BankAccount("Vishrut", "Sharma", "Gaurav.Sharma@Copart.com", null);
+		BankAccount ba1 = new BankAccount(1L, "Saurav", "Sharma", "Saurav.Sharma@Copart.com", null);
+		BankAccount ba2 = new BankAccount(2L, "Vishrut", "Sharma", "Gaurav.Sharma@Copart.com", null);
 		
-		assertNull(ba1.getAccountId());
-		assertNull(ba2.getAccountId());
+		assertNull(ba1.getAccountNumber());
+		assertNull(ba2.getAccountNumber());
 		
 		this.bankAccountRepository.save(ba1);
 		this.bankAccountRepository.save(ba2);
 		
-		assertNotNull(ba1.getAccountId());
-		assertNotNull(ba2.getAccountId());
+		assertNotNull(ba1.getAccountNumber());
+		assertNotNull(ba2.getAccountNumber());
 	}
 	
 	@Test

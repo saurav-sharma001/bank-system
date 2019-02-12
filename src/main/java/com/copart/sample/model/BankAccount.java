@@ -5,9 +5,9 @@ import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -16,6 +16,7 @@ public class BankAccount implements Serializable {
 	
 	private static final long serialVersionUID = 4337784876596873493L;
 	@Id
+	@Column(name = "account_number")
 	private Long accountNumber;
 	
 	@Column(name = "first_name")
@@ -37,11 +38,15 @@ public class BankAccount implements Serializable {
 	@Column(name = "updated_timestamp")
 	private Timestamp updatedTimestamp;
 	
-	protected BankAccount() {
-		
-	}
+	@OneToOne
+	@JoinColumn(name = "address_id", nullable = true)
+	private UserAddress address;
 
-	public BankAccount(String firstName, String lastName, String email, String phone) {
+	public BankAccount() {
+	}
+	
+	public BankAccount(Long accountNumber, String firstName, String lastName, String email, String phone) {
+		this.accountNumber = accountNumber;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
@@ -51,12 +56,12 @@ public class BankAccount implements Serializable {
 		this.updatedTimestamp = new Timestamp(System.currentTimeMillis());
 	}
 	
-	public Long getAccountId() {
-		return accountId;
+	public Long getAccountNumber() {
+		return accountNumber;
 	}
 
-	public void setAccountId(Long accountId) {
-		this.accountId = accountId;
+	public void setAccountNumber(Long accountId) {
+		this.accountNumber = accountId;
 	}
 
 	public String getFirstName() {
@@ -127,8 +132,13 @@ public class BankAccount implements Serializable {
 		this.phone = phone;
 	}
 
+	public UserAddress getAddress() {
+		return this.address;
+	}
+	
+	
 	@Override
 	public String toString() {
-		return "{\"account_id\":" + this.accountId + ",\"name\":\"" + this.firstName + " " + this.lastName + "\", \"email\": \"" + this.email + "\", \"phone\": \"" + this.phone + "\", \"createdTimestamp\": \"" + this.createdTimestamp + "\"}";
+		return "{\"account_number\":" + this.accountNumber + ",\"name\":\"" + this.firstName + " " + this.lastName + "\", \"email\": \"" + this.email + "\", \"phone\": \"" + this.phone + "\", \"createdTimestamp\": \"" + this.createdTimestamp + "\"}";
 	}
 }

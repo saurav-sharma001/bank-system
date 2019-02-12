@@ -37,7 +37,7 @@ public class BankAccountService {
 	
 	public ResponseEntity<Object> findById(Long accountId) {
 	
-		Optional<BankAccount> res = bankAccountRepository.findByAccountIdAndIsDeleted(accountId, false);
+		Optional<BankAccount> res = bankAccountRepository.findByAccountNumberAndIsDeleted(accountId, false);
 		if(res.isPresent())
 			return new ResponseEntity<>(res.get(), HttpStatus.OK);
 		return new ResponseEntity<>(new CustomResponse("No Account exists for account id: " + accountId, 404), HttpStatus.NOT_FOUND);
