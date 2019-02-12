@@ -16,8 +16,7 @@ public class BankAccount implements Serializable {
 	
 	private static final long serialVersionUID = 4337784876596873493L;
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long accountId;
+	private Long accountNumber;
 	
 	@Column(name = "first_name")
 	private String firstName;

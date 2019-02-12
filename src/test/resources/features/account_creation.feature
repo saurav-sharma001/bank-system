@@ -4,5 +4,5 @@ Feature: Clients are able to retrieve all or a specific accounts. When the clien
 
 	Scenario: Retrieving all Accounts
 		When the client send a request to retrieve all accounts
-		Then the user gets status code of 200
-		And the user get list of all the accounts
+		Then the client gets status code of 200
+		And the client get list of all the accounts
