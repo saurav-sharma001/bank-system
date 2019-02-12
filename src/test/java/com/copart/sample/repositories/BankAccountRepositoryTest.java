@@ -26,8 +26,8 @@ public class BankAccountRepositoryTest {
 	public void setUp() throws Exception {
 		
 		System.out.println("---------- Running Test Cases -----------");
-		BankAccount ba1 = new BankAccount("Saurav", "Sharma", "Saurav.Sharma@Copart.com");
-		BankAccount ba2 = new BankAccount("Vishrut", "Sharma", "Gaurav.Sharma@Copart.com");
+		BankAccount ba1 = new BankAccount("Saurav", "Sharma", "Saurav.Sharma@Copart.com", null);
+		BankAccount ba2 = new BankAccount("Vishrut", "Sharma", "Gaurav.Sharma@Copart.com", null);
 		
 		assertNull(ba1.getAccountId());
 		assertNull(ba2.getAccountId());

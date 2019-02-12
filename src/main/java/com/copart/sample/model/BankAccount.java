@@ -25,6 +25,12 @@ public class BankAccount implements Serializable {
 	private String lastName;
 	@Column(name = "email")
 	private String email;
+	
+	@Column(name = "branch_name")
+	private String branchName;
+	@Column(name = "phone")
+	private String phone;
+	
 	@Column(name = "is_deleted")
 	private Boolean isDeleted;
 	@Column(name = "created_timestamp")
@@ -36,10 +42,11 @@ public class BankAccount implements Serializable {
 		
 	}
 
-	public BankAccount(String firstName, String lastName, String email) {
+	public BankAccount(String firstName, String lastName, String email, String phone) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
+		this.phone = phone;
 		this.isDeleted = false;
 		this.createdTimestamp = new Timestamp(System.currentTimeMillis());
 		this.updatedTimestamp = new Timestamp(System.currentTimeMillis());
@@ -77,25 +84,25 @@ public class BankAccount implements Serializable {
 		this.email = email;
 	}
 
-	public Boolean getIsDeleted() {
-		return isDeleted;
-	}
+//	public Boolean getIsDeleted() {
+//		return isDeleted;
+//	}
 
 	public void setIsDeleted(Boolean isDeleted) {
 		this.isDeleted = isDeleted;
 	}
 
-	public Timestamp getCreatedTimestamp() {
-		return createdTimestamp;
-	}
+//	public Timestamp getCreatedTimestamp() {
+//		return createdTimestamp;
+//	}
 
 	public void setCreatedTimestamp() {
 		this.createdTimestamp = new Timestamp(System.currentTimeMillis());
 	}
 
-	public Timestamp getUpdatedTimestamp() {
-		return updatedTimestamp;
-	}
+//	public Timestamp getUpdatedTimestamp() {
+//		return updatedTimestamp;
+//	}
 
 	public void setUpdatedTimestamp() {
 		this.updatedTimestamp = new Timestamp(System.currentTimeMillis());
@@ -105,8 +112,24 @@ public class BankAccount implements Serializable {
 //		return this.firstName + " " + this.lastName;
 //	}
 	
+	public String getBranchName() {
+		return branchName;
+	}
+
+	public void setBranchName(String branchName) {
+		this.branchName = branchName;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
 	@Override
 	public String toString() {
-		return "USER {\"account_id\":" + this.accountId + ",\"name\":\"" + this.firstName + " " + this.lastName + "\", \"email\": \"" + this.email + "\", \"createdTimestamp\": \"" + this.createdTimestamp + "\"}";
+		return "{\"account_id\":" + this.accountId + ",\"name\":\"" + this.firstName + " " + this.lastName + "\", \"email\": \"" + this.email + "\", \"phone\": \"" + this.phone + "\", \"createdTimestamp\": \"" + this.createdTimestamp + "\"}";
 	}
 }
