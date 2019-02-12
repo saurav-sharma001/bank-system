@@ -34,8 +34,7 @@ public class BankAccountRequestValidation {
 		String message = "";
 		if(bankAccount.getAccountNumber() == null) {
 			return("Account Number is a required field");
-		}
-		else if(bankAccount.getEmail() == null) {
+		} else if(bankAccount.getEmail() == null) {
 			return("Email is a required field");
 		} else if(bankAccount.getFirstName() == null || bankAccount.getFirstName().trim().length() < 1) {
 			return("First name not provided");
@@ -43,7 +42,7 @@ public class BankAccountRequestValidation {
 			return("Last name not provided");
 		} else if(!emailPattern.matcher(bankAccount.getEmail()).matches()) {
 			return("Not a valid Email");
-		} else if(!phonePattern.matcher(bankAccount.getPhone()).matches()) {
+		} else if(bankAccount.getPhone() != null && !phonePattern.matcher(bankAccount.getPhone()).matches()) {
 			return("Not a valid Phone");
 		}
 		

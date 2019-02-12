@@ -58,7 +58,7 @@ public class BankAccountService {
 		}
 		
 		bankAccountRepository.save(bankAccount);
-		return new ResponseEntity<>(new CustomResponse("Created Bank Account", 201), HttpStatus.CREATED);
+		return new ResponseEntity<>(new CustomResponse("Bank Account Successfully Created", 201), HttpStatus.CREATED);
 	}
 
 	public ResponseEntity<Object> updateById(Long accountId, BankAccount bankAccount) {

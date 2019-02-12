@@ -1,5 +1,7 @@
 package com.copart.sample.service;
 
+import static org.junit.Assert.assertNotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,15 +11,16 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import com.copart.sample.model.BankAccount;
 import com.copart.sample.repositories.BankAccountRepository;
 
+import cucumber.api.CucumberOptions;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import cucumber.api.junit.Cucumber;
 
-@RunWith(SpringRunner.class)
+@CucumberOptions(features = "classpath:features/account_creation.feature")
 @SpringBootTest
 public class BankAccountServiceTest {
 
@@ -40,7 +43,7 @@ public class BankAccountServiceTest {
 		bankAccounts.add(ba2);
 	}
 	
-	@When("^the client send a request to retrive all accounts")
+	@When("^the client send a request to retrieve all accounts$")
 	public void client_sends_request_all_account() throws Throwable {
 		
 		Mockito
@@ -48,8 +51,8 @@ public class BankAccountServiceTest {
 			.thenReturn(bankAccounts);
 	}
 	
-	@Then("^the client receive get list of all accounts")
-	public void client_receive_status_code() {
-		
+	@Then("^the client get list of all the accounts$")
+	public void the_client_get_list_of_all_the_accounts() throws Throwable {
+		assertNotNull(2);
 	}
 }
