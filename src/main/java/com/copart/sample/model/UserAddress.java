@@ -5,9 +5,15 @@ import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "user_address")
@@ -16,7 +22,7 @@ public class UserAddress implements Serializable {
 	private static final long serialVersionUID = -5719484975660950773L;
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "address_id")
 	private Long addressID;
 	@Column(name = "street")
@@ -36,11 +42,16 @@ public class UserAddress implements Serializable {
 	@Column(name = "updated_timestamp")
 	private Timestamp updatedTimestamp;
 	
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "account_number", nullable = false)
+	@JsonIgnore
+	private BankAccount accountNumber;
+	
 	protected UserAddress() {
 		
 	}
 	
-	public UserAddress(String street, String city, String state, String country, String zipcode) {
+	public UserAddress(String street, String city, String state, String country, String zipcode, BankAccount accountNumber) {
 		this.street = street;
 		this.state = state;
 		this.city = city;
@@ -49,6 +60,7 @@ public class UserAddress implements Serializable {
 		this.isDeleted = false;
 		this.createdTimestamp = new Timestamp(System.currentTimeMillis());
 		this.updatedTimestamp = new Timestamp(System.currentTimeMillis());
+		this.accountNumber = accountNumber;
 	}
 	
 	public Long getAddressID() {
@@ -99,28 +111,36 @@ public class UserAddress implements Serializable {
 		this.zipcode = zipcode;
 	}
 	
-	public Boolean getIsDeleted() {
-		return isDeleted;
-	}
+//	public Boolean getIsDeleted() {
+//		return isDeleted;
+//	}
 	
 	public void setIsDeleted(Boolean isDeleted) {
 		this.isDeleted = isDeleted;
 	}
 	
-	public Timestamp getCreatedTimestamp() {
-		return createdTimestamp;
-	}
+//	public Timestamp getCreatedTimestamp() {
+//		return createdTimestamp;
+//	}
 	
 	public void setCreatedTimestamp() {
 		this.createdTimestamp = new Timestamp(System.currentTimeMillis());
 	}
 	
-	public Timestamp getUpdatedTimestamp() {
-		return updatedTimestamp;
-	}
+//	public Timestamp getUpdatedTimestamp() {
+//		return updatedTimestamp;
+//	}
 	
 	public void setUpdatedTimestamp() {
 		this.updatedTimestamp = new Timestamp(System.currentTimeMillis());
+	}
+	
+	public BankAccount getAccountNumber() {
+		return accountNumber;
+	}
+
+	public void setAccountNumber(BankAccount accountNumber) {
+		this.accountNumber = accountNumber;
 	}
 	
 	@Override

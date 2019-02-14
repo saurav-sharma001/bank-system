@@ -4,4 +4,9 @@ Feature: Clients are able to retrieve all or a specific accounts. When the clien
 
 	Scenario: Retrieving all Accounts
 		When the client send a request to retrieve all accounts
-		Then the client get list of all the accounts
+		Then the client get total of 2 accounts
+		
+	Scenario: Account Creation
+		Given account detail: accountNumber: 20, firstName: Saurav, lastName: Sharma, email: sauravsharma001@gmail.com
+		When the client tries to create bank account
+		Then the client should receive "Bank Account Successfully Created" message 

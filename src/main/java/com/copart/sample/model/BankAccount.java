@@ -2,12 +2,13 @@ package com.copart.sample.model;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -38,9 +39,8 @@ public class BankAccount implements Serializable {
 	@Column(name = "updated_timestamp")
 	private Timestamp updatedTimestamp;
 	
-	@OneToOne
-	@JoinColumn(name = "address_id", nullable = true)
-	private UserAddress address;
+	@OneToMany(mappedBy = "accountNumber")
+	private Set<UserAddress> address = new HashSet<>();
 
 	public BankAccount() {
 	}
@@ -132,13 +132,17 @@ public class BankAccount implements Serializable {
 		this.phone = phone;
 	}
 
-	public UserAddress getAddress() {
+	public void setAddress(Set<UserAddress> address) {
+		this.address = address;
+	}
+	
+	public Set<UserAddress> getAddress() {
 		return this.address;
 	}
 	
 	
 	@Override
 	public String toString() {
-		return "{\"account_number\":" + this.accountNumber + ",\"name\":\"" + this.firstName + " " + this.lastName + "\", \"email\": \"" + this.email + "\", \"phone\": \"" + this.phone + "\", \"createdTimestamp\": \"" + this.createdTimestamp + "\"}";
+		return "{\"account_number\":" + this.accountNumber + ",\"name\":\"" + this.firstName + " " + this.lastName + "\", \"email\": \"" + this.email + "\", \"address\": \"" + this.address + "\", \"createdTimestamp\": \"" + this.createdTimestamp + "\"}";
 	}
 }

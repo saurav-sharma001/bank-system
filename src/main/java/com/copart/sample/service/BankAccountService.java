@@ -2,14 +2,18 @@ package com.copart.sample.service;
 
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.copart.sample.model.BankAccount;
+import com.copart.sample.model.UserAddress;
 import com.copart.sample.reponses.CustomResponse;
 import com.copart.sample.repositories.BankAccountRepository;
+import com.copart.sample.repositories.UserAddressRepository;
 import com.copart.sample.utils.BankAccountRequestValidation;
 
 @Service
@@ -20,6 +24,9 @@ public class BankAccountService {
 	
 	@Autowired
 	BankAccountRepository bankAccountRepository;
+	
+	@Autowired
+	UserAddressRepository userAddressRepository;
 	
 	@SuppressWarnings("unused")
 	public ResponseEntity<Object> findAll() {
@@ -43,6 +50,7 @@ public class BankAccountService {
 		return new ResponseEntity<>(new CustomResponse("No Account exists for account id: " + accountId, 404), HttpStatus.NOT_FOUND);
 	}
 	
+	@Transactional
 	public ResponseEntity<Object> addOne(BankAccount bankAccount) {
 		String validateMessage = bankAccountRequestValidation.validateAddBankAccountRequest(bankAccount);		
 		if(validateMessage.length() > 2) {
@@ -57,7 +65,16 @@ public class BankAccountService {
 			bankAccount.setBranchName("Dallas");
 		}
 		
-		bankAccountRepository.save(bankAccount);
+		BankAccount b = bankAccountRepository.save(bankAccount);
+		if(bankAccount.getAddress() != null && !bankAccount.getAddress().isEmpty()) {
+			for(UserAddress uAddress : bankAccount.getAddress()) {
+				uAddress.setAccountNumber(b);
+				uAddress.setUpdatedTimestamp();
+				uAddress.setCreatedTimestamp();
+				uAddress.setIsDeleted(false);
+				userAddressRepository.save(uAddress);
+			}
+		}
 		return new ResponseEntity<>(new CustomResponse("Bank Account Successfully Created", 201), HttpStatus.CREATED);
 	}
 
@@ -93,4 +110,14 @@ public class BankAccountService {
 		bankAccountRepository.save(bankAccountToUpdate);
 		return new ResponseEntity<>("", HttpStatus.NO_CONTENT);
 	}
+	
+	public ResponseEntity<Object> getAddressForAnAccountNumber(Long accountNumber) {
+		
+		Optional<BankAccount> res = bankAccountRepository.findByAccountNumberAndIsDeleted(accountNumber, false);
+		if(!res.isPresent()) {			
+			return new ResponseEntity<>(new CustomResponse("No Account exists for account id: " + accountNumber, 404), HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<>(res.get().getAddress(), HttpStatus.OK);
+	}
+	
 }
